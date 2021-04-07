@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="mainVm"
+            type="com.roweb.exchangerates.viewmodel.MainViewModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.MainActivity">
+
+        <!--No Internet-->
+        <TextView
+            android:id="@+id/text_no_internet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@android:color/holo_red_dark"
+            android:text="@string/no_internet"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:visibility="@{mainVm.noInternet}" />
+        <!--No Internet End -->
+
+        <!--Base Currency-->
+        <LinearLayout
+            android:id="@+id/topView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_no_internet"
+            android:gravity="center_vertical"
+            android:background="@color/colorWhiteF5"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/base_currency"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/text_base_currency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{mainVm.baseCurrency}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:setImageResource="@{mainVm.flagResource}"/>
+
+        </LinearLayout>
+        <!--Base Currency End -->
+
+        <!--Timestamp-->
+        <LinearLayout
+            android:id="@+id/timestampView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/topView"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorWhiteF5"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/timestamp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/text_timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mainVm.timestamp}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        <!--Timestamp End -->
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_latest_rates"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/timestampView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            tools:listitem="@layout/exchange_rate_item"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:setAdapter="@{mainVm.getAdapter()}" />
+
+    </RelativeLayout>
+
+</layout>
